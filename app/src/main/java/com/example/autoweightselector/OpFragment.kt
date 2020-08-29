@@ -81,7 +81,7 @@ class OpFragment : Fragment() {
         //myViewModel 綁定
         val myViewModel = activity?.run {
             ViewModelProvider(this).get(MyViewModel::class.java) } ?:throw Exception ("Invalid Activity")
-
+//底下是測試碼
 textView.setOnClickListener {
     findNavController().navigate(R.id.mainFragment)
 }

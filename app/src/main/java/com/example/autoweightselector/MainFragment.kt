@@ -78,6 +78,8 @@ class MainFragment : Fragment() {
             ViewModelProvider(this).get(MyViewModel::class.java) } ?:throw Exception ("Invalid Activity")
 
         //內容寫在此
+
+        //底下是測試碼
         btnExit.setOnClickListener {
             findNavController().navigate(R.id.opFragment)  //跳到另一個Fragment
         }
