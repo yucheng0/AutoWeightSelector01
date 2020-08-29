@@ -9,5 +9,18 @@
         android:id="@+id/mainFragment"
         android:name="com.example.autoweightselector.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_opFragment"
+            app:destination="@id/opFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/opFragment"
+        android:name="com.example.autoweightselector.OpFragment"
+        android:label="fragment_op"
+        tools:layout="@layout/fragment_op" >
+        <action
+            android:id="@+id/action_opFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>
