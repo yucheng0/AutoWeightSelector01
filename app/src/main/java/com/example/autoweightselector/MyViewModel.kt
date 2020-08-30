@@ -3,8 +3,10 @@ package com.example.autoweightselector
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothSocket
 import android.content.Context
+import android.os.SystemClock
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
@@ -12,15 +14,19 @@ import java.io.IOException
 import java.util.*
 
 class MyViewModel : ViewModel() {
+    var isPowerOnEnable = false
     var myUUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
     lateinit var context: Context
-
+    var now = SystemClock.uptimeMillis()
+    var diff = MutableLiveData<Long>()
     companion object {
         lateinit var job: Job
         lateinit var mBluetoothAdapter: BluetoothAdapter
         lateinit var btSocket: BluetoothSocket
     }
-
+    init {
+        diff.value = 0
+    }
 
     fun StartTimer() {
         viewModelScope.launch(Dispatchers.Main) {
@@ -31,7 +37,12 @@ class MyViewModel : ViewModel() {
     suspend fun delay200ms() {
         //耗時操作
         delay(200)
-        readData()          //執行資料的藍芽讀取
+        val next = SystemClock.uptimeMillis()
+        var x = (next?.minus(now))/1000
+        diff.value = x
+
+
+  //      readData()          //執行資料的藍芽讀取
 
     }
 

@@ -93,9 +93,12 @@ class MainFragment : Fragment() {
 
         //底下是測試碼
         btnScanQRCode.setOnClickListener {
-    //        findNavController().navigate(R.id.QRcodeFragment)  //跳到另一個Fragment
         var intent = Intent(context,QRCodeMainActivity::class.java)
                startActivity(intent)
+        }
+
+        btnExit.setOnClickListener {
+            findNavController().navigate(R.id.doFragment)
         }
     }
 
