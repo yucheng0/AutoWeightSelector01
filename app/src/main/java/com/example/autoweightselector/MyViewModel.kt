@@ -46,10 +46,14 @@ class MyViewModel : ViewModel() {
         var x = (next?.minus(now)) / 1000
         diff.value = x
 //    weight 閃爍處理
+        Log.d(TAG, "isWeightFlash = $isWeightFlash ")
         if (isWeightFlash == true) {
-            if (weightflashState.value == true) {
+            Log.d(TAG, "weightflashState = ${weightflashState.value} ")
+                     if (weightflashState.value == true) {
+                Log.d(TAG, "weightflashState = ${weightflashState.value} ")
                 weightflashState.value = false
-            } else weightflashState.value == true
+            } else {weightflashState.value = true
+                Log.d(TAG, "weightflashState = ${weightflashState.value} ")}
         }
 
         //      readData()          //執行資料的藍芽讀取

@@ -87,7 +87,7 @@ class DoFragment : Fragment() {
             if (myViewModel.isPowerOnEnable == true) {
                 if (myViewModel.isWeightFlash == true) {
                    when (myViewModel.weightflashState.value){
-                       true  -> textViewTime.text = "100"
+                       true  -> textViewWeight.text = "100"
                        false ->  textViewWeight.text = ""  }
                 }
             }
