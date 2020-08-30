@@ -1,14 +1,21 @@
 package com.example.autoweightselector
 
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothSocket
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.autoweightselector.databinding.FragmentMainBinding
 import kotlinx.android.synthetic.main.fragment_main.*
+import java.io.IOException
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +68,7 @@ class MainFragment : Fragment() {
          * @return A new instance of fragment MainFragment.
          */
         // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             MainFragment().apply {
@@ -78,10 +86,15 @@ class MainFragment : Fragment() {
             ViewModelProvider(this).get(MyViewModel::class.java) } ?:throw Exception ("Invalid Activity")
 
         //內容寫在此
+       myViewModel.CheckBt()
+       myViewModel.Connect()
 
         //底下是測試碼
         btnExit.setOnClickListener {
             findNavController().navigate(R.id.opFragment)  //跳到另一個Fragment
         }
     }
+
+
+
 }
