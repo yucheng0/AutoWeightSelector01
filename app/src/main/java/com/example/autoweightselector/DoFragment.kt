@@ -83,8 +83,17 @@ class DoFragment : Fragment() {
         val myViewModel = activity?.run {
             ViewModelProvider(this).get(MyViewModel::class.java) } ?:throw Exception ("Invalid Activity")
 //藍芽處理程序
+        myViewModel.weightflashState.observe(viewLifecycleOwner, {
+            if (myViewModel.isPowerOnEnable == true) {
+                if (myViewModel.isWeightFlash == true) {
+                   when (myViewModel.weightflashState.value){
+                       true  -> textViewTime.text = "100"
+                       false ->  textViewWeight.text = ""  }
+                }
+            }
+        })
 
-        //監控  ->第1次初始化MyViewModel時它的值是被監聽到的所以它第一次會被執行
+        //監聽  ->第1次初始化MyViewModel時它的值是被監聽到的所以它第一次會被執行
         myViewModel.diff.observe(viewLifecycleOwner,  {
             if (myViewModel.isPowerOnEnable == true) {
                 myViewModel.StartTimer()
@@ -106,6 +115,7 @@ class DoFragment : Fragment() {
             findNavController().navigate(R.id.mainFragment)
         }
         btnStart.setOnClickListener {
+            myViewModel.isWeightFlash = true  //0830test
             if (myViewModel.isPowerOnEnable == false) {
                 myViewModel.isPowerOnEnable = true
                 myViewModel.now = SystemClock.uptimeMillis()
