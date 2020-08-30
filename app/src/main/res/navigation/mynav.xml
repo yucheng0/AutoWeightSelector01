@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainFragment_to_opFragment"
             app:destination="@id/opFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_QRcodeFragment"
+            app:destination="@id/QRcodeFragment" />
     </fragment>
     <fragment
         android:id="@+id/opFragment"
@@ -21,6 +24,15 @@
         tools:layout="@layout/fragment_op" >
         <action
             android:id="@+id/action_opFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/QRcodeFragment"
+        android:name="com.example.autoweightselector.QRcodeFragment"
+        android:label="fragment_q_rcode"
+        tools:layout="@layout/fragment_q_rcode" >
+        <action
+            android:id="@+id/action_QRcodeFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
 </navigation>
