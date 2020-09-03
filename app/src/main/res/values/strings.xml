@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AutoWeightSelector</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="autoweightsetting">Auto Weight Setting</string>
+    <string name="connect">Connect</string>
+    <string name="scanqrcode">Scan \nQRCode</string>
+    <string name="exit">Exit</string>
+    <string name="time">00:00</string>
+
+</resources>
