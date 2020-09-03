@@ -1,22 +1,17 @@
 package com.example.autoweightselector
 
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothSocket
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.autoweightselector.databinding.FragmentMainBinding
 import kotlinx.android.synthetic.main.fragment_main.*
-import java.io.IOException
-import java.util.*
+import java.lang.Exception
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -34,6 +29,9 @@ class MainFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+ //   var myViewModel = MainActivity.myViewModel
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -46,18 +44,21 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //myViewModel 綁定
-        val myViewModel = activity?.run {
-            ViewModelProvider(this).get(MyViewModel::class.java) } ?:throw Exception ("Invalid Activity")
-        //Databinding 綁定
-      //  val databinding1 =
-        val dataBinding = FragmentMainBinding.inflate(inflater,container,false)
 
-        dataBinding.setData(myViewModel)
+          //myViewModel 綁定
+ //    val myViewModel = activity?.run {
+ //           ViewModelProvider(this).get(MyViewModel::class.java)
+  //      } ?: throw Exception("Invalid Activity")
+
+              //Databinding 綁定
+        //  val databinding1 =
+        val dataBinding = FragmentMainBinding.inflate(inflater, container, false)
+
+  //      dataBinding.setData(myViewModel)
         dataBinding.setLifecycleOwner(this)
         return dataBinding.root
         // Inflate the layout for this fragment
-     //   return inflater.inflate(R.layout.fragment_main, container, false)
+        //   return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     companion object {
@@ -71,7 +72,10 @@ class MainFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
 
-        @JvmStatic
+        var getrightqrcodemacvalue01 = "null"
+        lateinit var myViewModel: MyViewModel
+
+                @JvmStatic
         fun newInstance(param1: String, param2: String) =
             MainFragment().apply {
                 arguments = Bundle().apply {
@@ -83,25 +87,54 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        textViewTest.text = myViewModel.testtext
+        try {
+            Log.d(TAG, "MainActivity.myViewModel ${myViewModel}")
+        } catch (e:Exception) {
+            Log.d(TAG, "onActivityCreated: ${e.printStackTrace()}")}
+//        val myViewModel = MainActivity.myViewModel
         //myViewModel 綁定
-        val myViewModel = activity?.run {
-        ViewModelProvider(this).get(MyViewModel::class.java) } ?:throw Exception ("Invalid Activity")
+ //        myViewModel = activity?.run {
+//            ViewModelProvider(this).get(MyViewModel::class.java)
+ //     } ?: throw Exception("Invalid Activity")
 
         //內容寫在此
- //      myViewModel.CheckBt()
- //      myViewModel.Connect()
+        //      myViewModel.CheckBt()
+        //      myViewModel.Connect()
+ //       Log.d(TAG, "myViewModea:$myViewModel ")
+        Log.d(TAG, "getrightqrcodemacvalue01: $getrightqrcodemacvalue01")
+ //       Log.d(TAG, "getrightqrcodemacvalue00: ${myViewModel.getrightqrcodemacvalue}")
+
+
+
 
         //底下是測試碼
         btnScanQRCode.setOnClickListener {
-        var intent = Intent(context,QRCodeMainActivity::class.java)
-               startActivity(intent)
+
+            textViewTest.text = myViewModel.testtext
+            var intent1 = Intent(context, QRCodeMainActivity::class.java)
+
+            var str = "I am yct"
+//用資料捆傳遞資料
+//用資料捆傳遞資料
+            val bundle = Bundle()
+            bundle.putString("data", str)
+//把資料捆設定改意圖
+            intent1.putExtra("bun", bundle)  //傳遞的資料
+//啟用意圖
+            startActivity(intent1)
+
         }
 
         btnExit.setOnClickListener {
             findNavController().navigate(R.id.doFragment)
         }
-    }
 
+        btnConnect.setOnClickListener {
+            //說話
+   //         myViewModel.texttospeech("Welcome")
+        }
+    }
 
 
 }

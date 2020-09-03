@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.os.SystemClock
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
@@ -14,6 +15,8 @@ import java.io.IOException
 import java.util.*
 
 class MyViewModel : ViewModel() {
+    var testtext = "testtext"
+    var getrightqrcodemacvalue:String? = null
     var isPowerOnEnable = false
     var isWeightFlash = false
     var myUUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
@@ -21,6 +24,7 @@ class MyViewModel : ViewModel() {
     var now = SystemClock.uptimeMillis()
     var diff = MutableLiveData<Long>()
     var weightflashState = MutableLiveData<Boolean>()
+    lateinit var mTTS:TextToSpeech
 
     companion object {
         lateinit var job: Job
@@ -32,6 +36,17 @@ class MyViewModel : ViewModel() {
         diff.value = 0
         weightflashState.value = false
     }
+// Text to Speech
+    fun texttospeech(toSpeak:String) {
+    mTTS = TextToSpeech(context, TextToSpeech.OnInitListener { status ->
+        if (status != TextToSpeech.ERROR) {
+            //if there is no error then set language
+            mTTS.language = Locale.UK
+            mTTS.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null,null)
+        }
+    })
+}
+
 
     fun StartTimer() {
         viewModelScope.launch(Dispatchers.Main) {
@@ -46,14 +61,15 @@ class MyViewModel : ViewModel() {
         var x = (next?.minus(now)) / 1000
         diff.value = x
 //    weight 閃爍處理
-        Log.d(TAG, "isWeightFlash = $isWeightFlash ")
+  //      Log.d(TAG, "isWeightFlash = $isWeightFlash ")
         if (isWeightFlash == true) {
-            Log.d(TAG, "weightflashState = ${weightflashState.value} ")
+       //     Log.d(TAG, "weightflashState = ${weightflashState.value} ")
                      if (weightflashState.value == true) {
-                Log.d(TAG, "weightflashState = ${weightflashState.value} ")
+  //             Log.d(TAG, "weightflashState = ${weightflashState.value} ")
                 weightflashState.value = false
             } else {weightflashState.value = true
-                Log.d(TAG, "weightflashState = ${weightflashState.value} ")}
+            //    Log.d(TAG, "weightflashState = ${weightflashState.value} ")
+                     }
         }
 
         //      readData()          //執行資料的藍芽讀取

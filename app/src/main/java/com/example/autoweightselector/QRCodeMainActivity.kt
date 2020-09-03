@@ -1,16 +1,20 @@
 package com.example.autoweightselector
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
@@ -21,11 +25,36 @@ class QRCodeMainActivity : AppCompatActivity() {
 
     private lateinit var detector: BarcodeDetector
     private lateinit var cameraSource: CameraSource
-
+companion object{
+    lateinit var myViewModel: MyViewModel
+}
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_q_r_code_main)
+//得到傳遞來的資料
+        var bundle = intent.getBundleExtra("bun")
+        val data = bundle?.get("data")
+        Log.d(TAG, "data:$data ")
 
+//  測試馬上傳回去
+       MainFragment.getrightqrcodemacvalue01 = "00:44:55:77:99:88"
+      Log.d(TAG, "onCreate:${myViewModel}")
+        MainFragment.myViewModel.getrightqrcodemacvalue ="00:11:22:33:44:55"
+
+
+        var intent2 = Intent(this, MainActivity::class.java)
+        var str = "I am yct2"
+//用資料捆傳遞資料
+        val bundle1 = Bundle()
+        bundle1.putString("data2", str)
+//把資料捆設定改意圖
+        intent2.putExtra("bun", bundle1)  //傳遞的資料
+//啟用意圖
+  //      startActivity(intent2)
+        finish()            // 結束這個就跳回去了, 此時viewmodel 不會被重建
+
+//====================================
+//
         val builder = AlertDialog.Builder(this)
         var taskHandler = Handler()
         var runnable = object : Runnable {
