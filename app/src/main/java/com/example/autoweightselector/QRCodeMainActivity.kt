@@ -51,6 +51,8 @@ companion object{
         intent2.putExtra("bun", bundle1)  //傳遞的資料
 //啟用意圖
   //      startActivity(intent2)
+        myViewModel.qrcodelivedataenabled = true
+        myViewModel.qrcodelivedata.value = myViewModel.qrcodelivedata.value
         finish()            // 結束這個就跳回去了, 此時viewmodel 不會被重建
 
 //====================================

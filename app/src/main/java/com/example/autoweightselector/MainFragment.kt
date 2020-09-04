@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.autoweightselector.databinding.FragmentMainBinding
@@ -125,6 +126,14 @@ class MainFragment : Fragment() {
             startActivity(intent1)
 
         }
+
+      myViewModel.qrcodelivedata.observe(viewLifecycleOwner, Observer {
+          if (myViewModel.qrcodelivedataenabled==true) {
+              myViewModel.qrcodelivedataenabled=false
+              findNavController().navigate(R.id.doFragment)
+          }
+      })
+
 
         btnExit.setOnClickListener {
             findNavController().navigate(R.id.doFragment)

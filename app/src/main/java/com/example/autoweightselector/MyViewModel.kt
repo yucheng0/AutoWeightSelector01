@@ -15,6 +15,8 @@ import java.io.IOException
 import java.util.*
 
 class MyViewModel : ViewModel() {
+    var qrcodelivedata = MutableLiveData<Long>()
+    var qrcodelivedataenabled = false
     var testtext = "testtext"
     var getrightqrcodemacvalue:String? = null
     var isPowerOnEnable = false
@@ -30,11 +32,13 @@ class MyViewModel : ViewModel() {
         lateinit var job: Job
         lateinit var mBluetoothAdapter: BluetoothAdapter
         lateinit var btSocket: BluetoothSocket
+
     }
 
     init {
         diff.value = 0
         weightflashState.value = false
+        qrcodelivedata.value = 0
     }
 // Text to Speech
     fun texttospeech(toSpeak:String) {

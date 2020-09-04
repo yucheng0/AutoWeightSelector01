@@ -113,7 +113,7 @@ class DoFragment : Fragment() {
 
 
         btnTest.setOnClickListener {
-            val intent = Intent (context,QRCodeMainActivity::class.java)
+            val intent = Intent (context,MainActivity2::class.java)
             startActivity(intent)
         }
 
